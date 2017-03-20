@@ -1,25 +1,21 @@
-package com.levelup.persist.entity;
+package com.levelup.persist.model;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.validation.constraints.NotNull;
+import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.Document;
 
 /**
- * A Model class the represents an Address
+ * A POJO class the represents an Address
+ * 
+ * @author ahamouda
  */
-@Entity
+@Document(collection = "addresses")
 public class Address {
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
 
-	@NotNull
 	private String address1;
 	private String address2;
-	@NotNull
 	private Integer zipcode;
 	private String city;
 	private String state;

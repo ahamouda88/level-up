@@ -9,7 +9,7 @@ import org.springframework.boot.web.support.SpringBootServletInitializer;
 public class SpringBootConfig extends SpringBootServletInitializer {
 
 	public static void main(String[] args) {
-		SpringApplication.run(new Class[] { SpringBootConfig.class }, args);
+		SpringApplication.run(new Class[] { SpringBootConfig.class, MongoConfig.class }, args);
 	}
 
 	@Override
