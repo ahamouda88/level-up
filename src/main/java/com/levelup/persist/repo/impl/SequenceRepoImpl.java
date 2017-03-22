@@ -2,9 +2,7 @@ package com.levelup.persist.repo.impl;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.mongodb.core.FindAndModifyOptions;
-import org.springframework.data.mongodb.core.MongoOperations;
 import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.data.mongodb.core.query.Update;
@@ -20,12 +18,13 @@ import com.levelup.persist.repo.SequenceRepo;
  *
  */
 @Repository
-public class SequenceRepoImpl implements SequenceRepo {
+public class SequenceRepoImpl extends CollectionRepoImpl implements SequenceRepo {
+
+	public SequenceRepoImpl() {
+		super(Sequence.class);
+	}
 
 	private static final Logger LOGGER = LoggerFactory.getLogger(SequenceRepoImpl.class);
-
-	@Autowired
-	private MongoOperations mongoOperation;
 
 	/**
 	 * @see SequenceRepo#getNextSequenceId(String)
@@ -39,12 +38,11 @@ public class SequenceRepoImpl implements SequenceRepo {
 
 		FindAndModifyOptions options = new FindAndModifyOptions();
 		options.returnNew(true);
-		Sequence seqId = mongoOperation.findAndModify(query, update, options, Sequence.class);
+		Sequence seqId = mongoTemplate.findAndModify(query, update, options, Sequence.class);
 
 		if (seqId == null) {
 			LOGGER.error("Failed to generate new sequence Id!");
 		}
 		return seqId.getSeq();
 	}
-
 }
