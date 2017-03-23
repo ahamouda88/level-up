@@ -20,11 +20,11 @@ import com.levelup.persist.repo.SequenceRepo;
 @Repository
 public class SequenceRepoImpl extends CollectionRepoImpl implements SequenceRepo {
 
+	private static final Logger LOGGER = LoggerFactory.getLogger(SequenceRepoImpl.class);
+
 	public SequenceRepoImpl() {
 		super(Sequence.class);
 	}
-
-	private static final Logger LOGGER = LoggerFactory.getLogger(SequenceRepoImpl.class);
 
 	/**
 	 * @see SequenceRepo#getNextSequenceId(String)
@@ -42,6 +42,7 @@ public class SequenceRepoImpl extends CollectionRepoImpl implements SequenceRepo
 
 		if (seqId == null) {
 			LOGGER.error("Failed to generate new sequence Id!");
+			return -1;
 		}
 		return seqId.getSeq();
 	}

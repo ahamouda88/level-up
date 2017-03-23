@@ -30,5 +30,4 @@ public abstract class CollectionRepoImpl implements CollectionRepo {
 	public Class<?> getCollectionType() {
 		return classType;
 	}
-
 }

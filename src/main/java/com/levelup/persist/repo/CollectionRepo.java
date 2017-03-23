@@ -2,6 +2,8 @@ package com.levelup.persist.repo;
 
 import org.springframework.data.mongodb.core.MongoTemplate;
 
+import com.mongodb.DBCollection;
+
 /**
  * An interface to manage collections
  * 
@@ -14,7 +16,7 @@ public interface CollectionRepo {
 	 * A method that creates a collection if collection doesn't already exists
 	 */
 	public default void createCollection() {
-		if (!getMongoTemplate().collectionExists(getCollectionType())) {
+		if (!collectionExists()) {
 			getMongoTemplate().createCollection(getCollectionType());
 		}
 	}
@@ -23,9 +25,29 @@ public interface CollectionRepo {
 	 * A method that drops a collection if collection already exists
 	 */
 	public default void dropCollection() {
-		if (getMongoTemplate().collectionExists(getCollectionType())) {
+		if (collectionExists()) {
 			getMongoTemplate().dropCollection(getCollectionType());
 		}
+	}
+
+	/**
+	 * A method that checks if collection exists or not
+	 * 
+	 * @return true if collection exists, false otherwise
+	 */
+	public default boolean collectionExists() {
+		return getMongoTemplate().collectionExists(getCollectionType());
+	}
+
+	/**
+	 * A method that returns a {@link DBCollection} given the collection name
+	 * 
+	 * @param collectionName
+	 *            a string representing the name of the collection needed
+	 * @return a {@link DBCollection} based on the given collection name
+	 */
+	public default DBCollection getCollection(String collectionName) {
+		return getMongoTemplate().getCollection(collectionName);
 	}
 
 	/**
@@ -41,4 +63,5 @@ public interface CollectionRepo {
 	 * @return the class type of the repo collection
 	 */
 	public Class<?> getCollectionType();
+
 }

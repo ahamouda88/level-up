@@ -1,9 +1,7 @@
 package com.levelup.spring.config;
 
-import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.data.mongodb.config.AbstractMongoConfiguration;
-import org.springframework.data.mongodb.core.MongoTemplate;
 
 import com.mongodb.Mongo;
 import com.mongodb.MongoClient;
