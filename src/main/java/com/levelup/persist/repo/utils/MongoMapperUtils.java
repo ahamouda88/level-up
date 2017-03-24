@@ -13,6 +13,7 @@ import com.mongodb.util.JSON;
  * @author ahamouda
  *
  */
+@Deprecated
 public final class MongoMapperUtils {
 	private static final Logger LOGGER = LoggerFactory.getLogger(MongoMapperUtils.class);
 

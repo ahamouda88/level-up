@@ -1,5 +1,7 @@
 package com.levelup.persist.repo;
 
+import java.util.List;
+
 import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
@@ -11,7 +13,6 @@ import org.springframework.test.context.junit4.SpringRunner;
 
 import com.levelup.persist.model.Sequence;
 import com.levelup.spring.config.SpringBootConfig;
-import com.levelup.utils.JsonParserUtils;
 
 /**
  * Unit test for Sequence Repository
@@ -28,14 +29,12 @@ public class SequenceRepoTest {
 		sequenceRepo.createCollection();
 
 		Assert.assertEquals(true, sequenceRepo.collectionExists());
-		
-		// Insert a sequence object
+
+		// Test Insert a sequence object
 		Sequence sequence = new Sequence();
 		sequence.setId("carId");
 		sequence.setSeq(0);
-		sequenceRepo.insertDocument(JsonParserUtils.convertObjectToJson(sequence));
-		
-		sequenceRepo.findAll();
+		sequenceRepo.insertDocument(sequence);
 	}
 
 	@Test
@@ -48,10 +47,26 @@ public class SequenceRepoTest {
 
 	@Test
 	public void testGetNextSequenceId() {
-		long expectedId = -1;
 		long actualId = sequenceRepo.getNextSequenceId("carId");
+		Assert.assertEquals(1, actualId);
 
-		Assert.assertEquals(expectedId, actualId);
+		actualId = sequenceRepo.getNextSequenceId("carId");
+		Assert.assertEquals(2, actualId);
+	}
+
+	@Test
+	public void testFindAll() {
+		List<Sequence> list = sequenceRepo.findAll();
+		Assert.assertEquals(1, list.size());
+
+		// Insert a user sequence object
+		Sequence sequence = new Sequence();
+		sequence.setId("userId");
+		sequence.setSeq(0);
+		sequenceRepo.insertDocument(sequence);
+
+		list = sequenceRepo.findAll();
+		Assert.assertEquals(2, list.size());
 	}
 
 	@After

@@ -36,8 +36,7 @@ public class SequenceRepoImpl extends CollectionRepoImpl<Sequence> implements Se
 		Update update = new Update();
 		update.inc("seq", 1);
 
-		FindAndModifyOptions options = new FindAndModifyOptions();
-		options.returnNew(true);
+		FindAndModifyOptions options = FindAndModifyOptions.options().returnNew(true);
 
 		Sequence seqId = mongoTemplate.findAndModify(query, update, options, Sequence.class);
 
