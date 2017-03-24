@@ -18,7 +18,7 @@ import com.levelup.persist.repo.SequenceRepo;
  *
  */
 @Repository
-public class SequenceRepoImpl extends CollectionRepoImpl implements SequenceRepo {
+public class SequenceRepoImpl extends CollectionRepoImpl<Sequence> implements SequenceRepo {
 
 	private static final Logger LOGGER = LoggerFactory.getLogger(SequenceRepoImpl.class);
 
@@ -31,13 +31,14 @@ public class SequenceRepoImpl extends CollectionRepoImpl implements SequenceRepo
 	 */
 	@Override
 	public long getNextSequenceId(String seqKey) {
-		Query query = new Query(Criteria.where("_id").is(seqKey));
+		Query query = new Query(Criteria.where("id").is(seqKey));
 
 		Update update = new Update();
 		update.inc("seq", 1);
 
 		FindAndModifyOptions options = new FindAndModifyOptions();
 		options.returnNew(true);
+
 		Sequence seqId = mongoTemplate.findAndModify(query, update, options, Sequence.class);
 
 		if (seqId == null) {

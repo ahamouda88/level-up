@@ -8,7 +8,7 @@ import com.levelup.persist.model.Sequence;
  * @author ahamouda
  *
  */
-public interface SequenceRepo extends CollectionRepo {
+public interface SequenceRepo extends CollectionRepo<Sequence> {
 
 	/**
 	 * A method to return the next sequence Id, from the sequences collection using the given sequence key or name

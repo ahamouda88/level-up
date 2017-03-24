@@ -1,5 +1,7 @@
 package com.levelup.utils;
 
+import static org.springframework.util.StringUtils.isEmpty;
+
 import java.io.IOException;
 
 import org.slf4j.Logger;
@@ -55,14 +57,14 @@ public final class JsonParserUtils {
 	 */
 	public static <T> T convertJsonToObject(String jsonString, Class<T> clazz) {
 		try {
-			if (clazz == null || org.springframework.util.StringUtils.isEmpty(jsonString)) {
+			if (clazz == null || isEmpty(jsonString)) {
 				LOGGER.error("JSON String and the class type can't be null!");
 				return null;
 			}
 
 			return mapper.readValue(jsonString, clazz);
 		} catch (IOException e) {
-			LOGGER.error("Unable to convert the following JSON String {} to a Java Object", jsonString);
+			LOGGER.error("Unable to convert the following JSON String {} to a Java Object", jsonString, e);
 			return null;
 		}
 	}

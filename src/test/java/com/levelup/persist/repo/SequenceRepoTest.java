@@ -9,8 +9,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
+import com.levelup.persist.model.Sequence;
 import com.levelup.spring.config.SpringBootConfig;
-import com.mongodb.DBCollection;
+import com.levelup.utils.JsonParserUtils;
 
 /**
  * Unit test for Sequence Repository
@@ -21,17 +22,20 @@ public class SequenceRepoTest {
 
 	@Autowired
 	private SequenceRepo sequenceRepo;
-	private static final String COLLECTION_NAME = "Sequence";
-
-	private DBCollection sequenceCollection;
 
 	@Before
 	public void testCreateCollection() {
 		sequenceRepo.createCollection();
 
 		Assert.assertEquals(true, sequenceRepo.collectionExists());
-		// This check should be in the repo implementation of sequence!!
-		sequenceCollection = sequenceRepo.getCollection(COLLECTION_NAME);
+		
+		// Insert a sequence object
+		Sequence sequence = new Sequence();
+		sequence.setId("carId");
+		sequence.setSeq(0);
+		sequenceRepo.insertDocument(JsonParserUtils.convertObjectToJson(sequence));
+		
+		sequenceRepo.findAll();
 	}
 
 	@Test
@@ -44,7 +48,10 @@ public class SequenceRepoTest {
 
 	@Test
 	public void testGetNextSequenceId() {
+		long expectedId = -1;
+		long actualId = sequenceRepo.getNextSequenceId("carId");
 
+		Assert.assertEquals(expectedId, actualId);
 	}
 
 	@After
