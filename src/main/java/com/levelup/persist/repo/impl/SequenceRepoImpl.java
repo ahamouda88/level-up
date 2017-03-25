@@ -18,7 +18,7 @@ import com.levelup.persist.repo.SequenceRepo;
  *
  */
 @Repository
-public class SequenceRepoImpl extends CollectionRepoImpl<Sequence> implements SequenceRepo {
+public class SequenceRepoImpl extends CollectionRepoImpl<Sequence, String> implements SequenceRepo {
 
 	private static final Logger LOGGER = LoggerFactory.getLogger(SequenceRepoImpl.class);
 

@@ -1,9 +1,12 @@
 package com.levelup.persist.repo;
 
+import java.io.Serializable;
 import java.util.List;
 
 import org.springframework.dao.DuplicateKeyException;
 import org.springframework.data.mongodb.core.MongoTemplate;
+import org.springframework.data.mongodb.core.query.Query;
+import org.springframework.data.mongodb.core.query.Update;
 
 import com.mongodb.DBCollection;
 
@@ -13,7 +16,7 @@ import com.mongodb.DBCollection;
  * @author ahamouda
  *
  */
-public interface CollectionRepo<T> {
+public interface CollectionRepo<T, E extends Serializable> {
 
 	/**
 	 * A method that creates a collection if collection doesn't already exists
@@ -54,6 +57,38 @@ public interface CollectionRepo<T> {
 		} catch (DuplicateKeyException ex) {
 			throw new DuplicateKeyException("Key exists and can't insert the following document: " + document);
 		}
+	}
+
+	/**
+	 * A method that either updates a document if already exists, or creates a new one if documents doens't exist
+	 * 
+	 * @param document
+	 *            the document to be updated/stored in the collection
+	 */
+	public default void upsertDocument(Query query, Update update) {
+		getMongoTemplate().upsert(query, update, getCollectionType());
+	}
+
+	/**
+	 * A method that finds document based on Id
+	 * 
+	 * @param id
+	 *            the id of the document
+	 * @return the document that matches the given Id
+	 */
+	public default T findById(E id) {
+		return getMongoTemplate().findById(id, getCollectionType());
+	}
+
+	/**
+	 * A method that search the collection based on the given query
+	 * 
+	 * @param query
+	 *            a {@link Query} object
+	 * @return a list of filtered documents
+	 */
+	public default List<T> search(Query query) {
+		return getMongoTemplate().find(query, getCollectionType());
 	}
 
 	/**

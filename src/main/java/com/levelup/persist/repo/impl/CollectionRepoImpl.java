@@ -1,11 +1,13 @@
 package com.levelup.persist.repo.impl;
 
+import java.io.Serializable;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.mongodb.core.MongoTemplate;
 
 import com.levelup.persist.repo.CollectionRepo;
 
-public abstract class CollectionRepoImpl<T> implements CollectionRepo<T> {
+public abstract class CollectionRepoImpl<T, E extends Serializable> implements CollectionRepo<T, E> {
 
 	@Autowired
 	protected MongoTemplate mongoTemplate;
