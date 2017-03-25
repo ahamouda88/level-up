@@ -1,14 +1,16 @@
 package com.levelup.persist.repo;
 
+import static org.junit.Assert.assertEquals;
+
 import java.util.List;
 
 import org.junit.After;
-import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.dao.DuplicateKeyException;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import com.levelup.persist.model.Sequence;
@@ -28,12 +30,10 @@ public class SequenceRepoTest {
 	public void testCreateCollection() {
 		sequenceRepo.createCollection();
 
-		Assert.assertEquals(true, sequenceRepo.collectionExists());
+		assertEquals(true, sequenceRepo.collectionExists());
 
 		// Test Insert a sequence object
-		Sequence sequence = new Sequence();
-		sequence.setId("carId");
-		sequence.setSeq(0);
+		Sequence sequence = createSequenceDocument("carId");
 		sequenceRepo.insertDocument(sequence);
 	}
 
@@ -42,40 +42,67 @@ public class SequenceRepoTest {
 		long expectedId = -1;
 		long actualId = sequenceRepo.getNextSequenceId("invalid");
 
-		Assert.assertEquals(expectedId, actualId);
+		assertEquals(expectedId, actualId);
 	}
 
 	@Test
 	public void testGetNextSequenceId() {
 		long actualId = sequenceRepo.getNextSequenceId("carId");
-		Assert.assertEquals(1, actualId);
+		assertEquals(1, actualId);
 
 		actualId = sequenceRepo.getNextSequenceId("carId");
-		Assert.assertEquals(2, actualId);
+		assertEquals(2, actualId);
+	}
+
+	@Test
+	public void testRemoveSequence() {
+		Sequence sequence = createSequenceDocument("carId");
+		sequenceRepo.removeDocument(sequence);
+
+		assertEquals(0, sequenceRepo.findAll().size());
+	}
+	
+	@Test
+	public void testRemoveInvalidSequence() {
+		Sequence sequence = createSequenceDocument(null);
+		sequenceRepo.removeDocument(sequence);
+
+		assertEquals(1, sequenceRepo.findAll().size());
+	}
+
+	@Test(expected = DuplicateKeyException.class)
+	public void testDuplicateKeySequence() {
+		Sequence sequence = createSequenceDocument("carId");
+		sequenceRepo.insertDocument(sequence);
 	}
 
 	@Test
 	public void testFindAll() {
 		List<Sequence> list = sequenceRepo.findAll();
-		Assert.assertEquals(1, list.size());
+		assertEquals(1, list.size());
 
 		// Insert a user sequence object
-		Sequence sequence = new Sequence();
-		sequence.setId("userId");
-		sequence.setSeq(0);
+		Sequence sequence = createSequenceDocument("userId");
 		sequenceRepo.insertDocument(sequence);
 
 		list = sequenceRepo.findAll();
-		Assert.assertEquals(2, list.size());
+		assertEquals(2, list.size());
 	}
 
 	@After
 	public void testDropCollection() {
-		Assert.assertEquals(true, sequenceRepo.collectionExists());
+		assertEquals(true, sequenceRepo.collectionExists());
 
 		sequenceRepo.dropCollection();
 
-		Assert.assertEquals(false, sequenceRepo.collectionExists());
+		assertEquals(false, sequenceRepo.collectionExists());
+	}
+
+	private Sequence createSequenceDocument(String key) {
+		Sequence sequence = new Sequence();
+		sequence.setId(key);
+		sequence.setSeq(0);
+		return sequence;
 	}
 
 }

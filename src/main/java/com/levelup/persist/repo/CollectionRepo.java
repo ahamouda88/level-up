@@ -2,6 +2,7 @@ package com.levelup.persist.repo;
 
 import java.util.List;
 
+import org.springframework.dao.DuplicateKeyException;
 import org.springframework.data.mongodb.core.MongoTemplate;
 
 import com.mongodb.DBCollection;
@@ -42,22 +43,28 @@ public interface CollectionRepo<T> {
 	}
 
 	/**
-	 * A method that inserts a document to the database
+	 * A method that inserts a document to the collection
 	 * 
 	 * @param document
 	 *            the document to be stored in the collection
 	 */
 	public default void insertDocument(T document) {
-		getMongoTemplate().insert(document);
+		try {
+			getMongoTemplate().insert(document);
+		} catch (DuplicateKeyException ex) {
+			throw new DuplicateKeyException("Key exists and can't insert the following document: " + document);
+		}
 	}
-	
-//	/**
-//	 * A method that deletes a document to the database
-//	 * 
-//	 */
-//	public default void deleteDocument(E id) {
-//		getMongoTemplate().
-//	}
+
+	/**
+	 * A method that removes a document from the collection
+	 * 
+	 * @param document
+	 *            the document to be stored in the collection
+	 */
+	public default void removeDocument(T document) {
+		getMongoTemplate().remove(document);
+	}
 
 	/**
 	 * A method that returns all documents of a collection
