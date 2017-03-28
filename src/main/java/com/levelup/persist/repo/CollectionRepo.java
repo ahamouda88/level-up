@@ -6,7 +6,6 @@ import java.util.List;
 import org.springframework.dao.DuplicateKeyException;
 import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.data.mongodb.core.query.Query;
-import org.springframework.data.mongodb.core.query.Update;
 
 import com.mongodb.DBCollection;
 
@@ -65,8 +64,8 @@ public interface CollectionRepo<T, E extends Serializable> {
 	 * @param document
 	 *            the document to be updated/stored in the collection
 	 */
-	public default void upsertDocument(Query query, Update update) {
-		getMongoTemplate().upsert(query, update, getCollectionType());
+	public default void upsertDocument(T document) {
+		getMongoTemplate().save(document);
 	}
 
 	/**

@@ -55,13 +55,24 @@ public class SequenceRepoTest {
 	}
 
 	@Test
+	public void testUpsertSequence() {
+		Sequence sequence = new Sequence();
+		sequence.setId("carId");
+		sequence.setSeq(99);
+		sequenceRepo.upsertDocument(sequence);
+
+		Sequence newSequence = sequenceRepo.findById("carId");
+		assertEquals(99, newSequence.getSeq());
+	}
+
+	@Test
 	public void testRemoveSequence() {
 		Sequence sequence = createSequenceDocument("carId");
 		sequenceRepo.removeDocument(sequence);
 
 		assertEquals(0, sequenceRepo.findAll().size());
 	}
-	
+
 	@Test
 	public void testRemoveInvalidSequence() {
 		Sequence sequence = createSequenceDocument(null);
