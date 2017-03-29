@@ -8,12 +8,14 @@ import com.levelup.persist.model.Sequence;
  * @author ahamouda
  *
  */
-public interface SequenceService {
+public interface SequenceService extends GenericService<Sequence, String> {
 
-	public void save(Sequence sequene);
-
-	public void delete(Sequence sequene);
-
-	public void update(Sequence sequene);
-
+	/**
+	 * A method that returns the next sequence Id
+	 * 
+	 * @param seqKey
+	 *            the key of the sequence needed
+	 * @return the next sequence Id based on the given sequence key.
+	 */
+	public long getNextSequenceId(String seqKey);
 }
