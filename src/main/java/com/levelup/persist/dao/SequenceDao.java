@@ -1,4 +1,4 @@
-package com.levelup.persist.repo;
+package com.levelup.persist.dao;
 
 import com.levelup.persist.model.Sequence;
 
@@ -8,7 +8,7 @@ import com.levelup.persist.model.Sequence;
  * @author ahamouda
  *
  */
-public interface SequenceRepo extends CollectionRepo<Sequence, String> {
+public interface SequenceDao extends CollectionDao<Sequence, String> {
 
 	/**
 	 * A method to return the next sequence Id, from the sequences collection using the given sequence key or name

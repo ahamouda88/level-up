@@ -1,4 +1,4 @@
-package com.levelup.persist.repo.impl;
+package com.levelup.persist.dao.impl;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -8,26 +8,26 @@ import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.data.mongodb.core.query.Update;
 import org.springframework.stereotype.Repository;
 
+import com.levelup.persist.dao.SequenceDao;
 import com.levelup.persist.model.Sequence;
-import com.levelup.persist.repo.SequenceRepo;
 
 /**
- * A class that implements {@link SequenceRepo}
+ * A class that implements {@link SequenceDao}
  * 
  * @author ahamouda
  *
  */
 @Repository
-public class SequenceRepoImpl extends CollectionRepoImpl<Sequence, String> implements SequenceRepo {
+public class SequenceDaoImpl extends CollectionDaoImpl<Sequence, String> implements SequenceDao {
 
-	private static final Logger LOGGER = LoggerFactory.getLogger(SequenceRepoImpl.class);
+	private static final Logger LOGGER = LoggerFactory.getLogger(SequenceDaoImpl.class);
 
-	public SequenceRepoImpl() {
+	public SequenceDaoImpl() {
 		super(Sequence.class);
 	}
 
 	/**
-	 * @see SequenceRepo#getNextSequenceId(String)
+	 * @see SequenceDao#getNextSequenceId(String)
 	 */
 	@Override
 	public long getNextSequenceId(String seqKey) {

@@ -1,4 +1,4 @@
-package com.levelup.persist.repo.utils;
+package com.levelup.persist.dao.utils;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

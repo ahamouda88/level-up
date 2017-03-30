@@ -1,4 +1,4 @@
-package com.levelup.persist.repo;
+package com.levelup.persist.dao;
 
 import java.io.Serializable;
 import java.util.List;
@@ -15,7 +15,7 @@ import com.mongodb.DBCollection;
  * @author ahamouda
  *
  */
-public interface CollectionRepo<T, E extends Serializable> {
+public interface CollectionDao<T, E extends Serializable> {
 
 	/**
 	 * A method that creates a collection if collection doesn't already exists
