@@ -15,7 +15,7 @@ public interface SequenceService extends GenericService<Sequence, String> {
 	 * 
 	 * @param seqKey
 	 *            the key of the sequence needed
-	 * @return the next sequence Id based on the given sequence key.
+	 * @return the next sequence Id based on the given sequence key, or <b>-1</b> if the key is invalid
 	 */
 	public long getNextSequenceId(String seqKey);
 }
