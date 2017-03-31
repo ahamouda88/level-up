@@ -20,18 +20,20 @@ public class SequenceServiceTest {
 	@Autowired
 	private SequenceService sequenceService;
 
-	@Before
-	public void testSave() {
-		sequenceService.save(createSequenceDocument("personId"));
+	private final String[] sequenceIds = new String[] { "personId" };
 
-		assertNotNull(sequenceService.find("personId"));
+	@Test
+	public void testSave() {
+		sequenceService.save(createSequenceDocument(sequenceIds[0]));
+
+		assertNotNull(sequenceService.find(sequenceIds[0]));
 	}
-	
+
 	@Test
 	public void testUpdate() {
-		Sequence sequence = sequenceService.find("personId");
+		Sequence sequence = sequenceService.find(sequenceIds[0]);
 		sequence.setSeq(99);
-		
+
 		sequenceService.update(sequence);
 
 		assertEquals(99, sequenceService.find("personId").getSeq());
