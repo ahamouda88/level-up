@@ -2,7 +2,12 @@ package com.levelup.service;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNull;
+import static org.junit.Assert.fail;
 
+import java.util.function.Consumer;
+
+import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -20,23 +25,66 @@ public class SequenceServiceTest {
 	@Autowired
 	private SequenceService sequenceService;
 
-	private final String[] sequenceIds = new String[] { "personId" };
+	private final String[] sequenceIds = new String[] { "personId", "autoId", "aptId" };
 
-	@Test
+	@Before
 	public void testSave() {
+		// Test Save and Find methods
 		sequenceService.save(createSequenceDocument(sequenceIds[0]));
-
 		assertNotNull(sequenceService.find(sequenceIds[0]));
+
+		sequenceService.save(createSequenceDocument(sequenceIds[1]));
+		assertNotNull(sequenceService.find(sequenceIds[1]));
+
+		sequenceService.save(createSequenceDocument(sequenceIds[2]));
+		assertNotNull(sequenceService.find(sequenceIds[2]));
 	}
 
 	@Test
-	public void testUpdate() {
+	public void testValidMethods() {
+		// Test Update method
 		Sequence sequence = sequenceService.find(sequenceIds[0]);
 		sequence.setSeq(99);
 
 		sequenceService.update(sequence);
+		assertEquals(99, sequenceService.find(sequenceIds[0]).getSeq());
 
-		assertEquals(99, sequenceService.find("personId").getSeq());
+		// Test Remove and findAll methods
+		assertEquals(3, sequenceService.findAll().size());
+		sequenceService.delete(sequence);
+		assertEquals(2, sequenceService.findAll().size());
+
+		// Test getNextSequenceId method
+		assertEquals(1, sequenceService.getNextSequenceId(sequenceIds[1]));
+	}
+
+	@After
+	public void testInvalidMethods() {
+		// Test invalid save method
+		testInvalidNullParameter(seq -> sequenceService.save(seq), "Sequence object and the sequence Id can't be null");
+
+		// Test invalid delete method
+		testInvalidNullParameter(seq -> sequenceService.delete(seq),
+				"Sequence object and the sequence Id can't be null");
+
+		// Test invalid update method
+		testInvalidNullParameter(seq -> sequenceService.update(seq),
+				"Sequence object and the sequence Id can't be null");
+
+		// Test invalid find method
+		assertNull(sequenceService.find("invalid"));
+
+		// Test invalid getNextSequenceId method
+		assertEquals(-1, sequenceService.getNextSequenceId(sequenceIds[0]));
+	}
+
+	private void testInvalidNullParameter(Consumer<Sequence> consumer, String expectedMessage) {
+		try {
+			consumer.accept(null);
+			fail("Expecting a NullPointerException!");
+		} catch (NullPointerException ex) {
+			assertEquals(ex.getMessage(), expectedMessage);
+		}
 	}
 
 	private Sequence createSequenceDocument(String key) {

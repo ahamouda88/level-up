@@ -2,6 +2,8 @@ package com.levelup.service.impl;
 
 import static org.springframework.util.StringUtils.isEmpty;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -72,6 +74,14 @@ public class SequenceServiceImpl implements SequenceService {
 		if (isEmpty(seqKey)) return -1;
 
 		return sequenceDao.getNextSequenceId(seqKey);
+	}
+
+	/**
+	 * @see SequenceService#findAll()
+	 */
+	@Override
+	public List<Sequence> findAll() {
+		return sequenceDao.findAll();
 	}
 
 	private boolean isValidSequence(Sequence sequence) {

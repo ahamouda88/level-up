@@ -1,5 +1,7 @@
 package com.levelup.service;
 
+import java.util.List;
+
 /**
  * An interface to manage and apply the logic for performing the generic operations on an entity
  * 
@@ -40,4 +42,11 @@ public interface GenericService<T, E> {
 	 * @return the object that matches the given Id, or <b>null</b> if id is invalid
 	 */
 	public T find(E id);
+
+	/**
+	 * A method that finds all objects
+	 * 
+	 * @return a list of objects
+	 */
+	public List<T> findAll();
 }
