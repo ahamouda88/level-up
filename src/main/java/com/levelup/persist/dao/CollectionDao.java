@@ -18,7 +18,7 @@ import com.mongodb.DBCollection;
 public interface CollectionDao<T, E extends Serializable> {
 
 	/**
-	 * A method that creates a collection if collection doesn't already exists
+	 * A method that creates a collection if collection doesn't already exist
 	 */
 	public default void createCollection() {
 		if (!collectionExists()) {

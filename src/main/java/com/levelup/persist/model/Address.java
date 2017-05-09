@@ -1,18 +1,11 @@
 package com.levelup.persist.model;
 
-import org.springframework.data.annotation.Id;
-import org.springframework.data.mongodb.core.mapping.Document;
-
 /**
  * A POJO class the represents an Address
  * 
  * @author ahamouda
  */
-@Document(collection = "addresses")
 public class Address {
-
-	@Id
-	private Long id;
 
 	private String address1;
 	private String address2;
@@ -20,14 +13,6 @@ public class Address {
 	private String city;
 	private String state;
 	private String country;
-
-	public Long getId() {
-		return id;
-	}
-
-	public void setId(Long id) {
-		this.id = id;
-	}
 
 	public String getAddress1() {
 		return address1;
@@ -85,7 +70,6 @@ public class Address {
 		result = prime * result + ((address2 == null) ? 0 : address2.hashCode());
 		result = prime * result + ((city == null) ? 0 : city.hashCode());
 		result = prime * result + ((country == null) ? 0 : country.hashCode());
-		result = prime * result + ((id == null) ? 0 : id.hashCode());
 		result = prime * result + ((state == null) ? 0 : state.hashCode());
 		result = prime * result + ((zipcode == null) ? 0 : zipcode.hashCode());
 		return result;
@@ -109,9 +93,6 @@ public class Address {
 		if (country == null) {
 			if (other.country != null) return false;
 		} else if (!country.equals(other.country)) return false;
-		if (id == null) {
-			if (other.id != null) return false;
-		} else if (!id.equals(other.id)) return false;
 		if (state == null) {
 			if (other.state != null) return false;
 		} else if (!state.equals(other.state)) return false;
@@ -123,8 +104,8 @@ public class Address {
 
 	@Override
 	public String toString() {
-		return "Address [id=" + id + ", address1=" + address1 + ", address2=" + address2 + ", zipcode=" + zipcode
-				+ ", city=" + city + ", state=" + state + ", country=" + country + "]";
+		return "Address [address1=" + address1 + ", address2=" + address2 + ", zipcode=" + zipcode + ", city=" + city
+				+ ", state=" + state + ", country=" + country + "]";
 	}
 
 }
