@@ -19,7 +19,7 @@ public class Buddy {
 
 	@Id
 	@Indexed
-	private String id;
+	private Long id;
 	private String firstName;
 	private String lastName;
 	private String phoneNumber;
@@ -33,11 +33,11 @@ public class Buddy {
 	@Lob
 	protected byte[] imageFile;
 
-	public String getId() {
+	public Long getId() {
 		return id;
 	}
 
-	public void setId(String id) {
+	public void setId(Long id) {
 		this.id = id;
 	}
 

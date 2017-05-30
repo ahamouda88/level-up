@@ -13,7 +13,7 @@ import com.levelup.persist.model.Buddy;
  *
  */
 @Repository
-public class BuddyDaoImpl extends CollectionDaoImpl<Buddy, String> implements BuddyDao {
+public class BuddyDaoImpl extends CollectionDaoImpl<Buddy, Long> implements BuddyDao {
 
 	public BuddyDaoImpl() {
 		super(Buddy.class);

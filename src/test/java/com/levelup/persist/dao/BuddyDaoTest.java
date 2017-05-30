@@ -35,7 +35,7 @@ public class BuddyDaoTest {
 		assertEquals(true, buddyDao.collectionExists());
 
 		// Test upsert buddy object
-		Buddy buddy = createEmptyBuddy("1");
+		Buddy buddy = createEmptyBuddy(1L);
 		buddy.setFirstName("Lionel");
 		buddy.setLastName("Messi");
 		buddyDao.upsertDocument(buddy);
@@ -43,17 +43,17 @@ public class BuddyDaoTest {
 
 	@Test
 	public void testFindAll() {
-		Buddy buddy1 = createEmptyBuddy("2");
+		Buddy buddy1 = createEmptyBuddy(2L);
 		buddy1.setFirstName("Xavi");
 		buddy1.setLastName("Hernandez");
 		buddyDao.insertDocument(buddy1);
 
-		Buddy buddy2 = createEmptyBuddy("3");
+		Buddy buddy2 = createEmptyBuddy(3L);
 		buddy2.setFirstName("Neymar");
 		buddy2.setLastName("JR");
 		buddyDao.insertDocument(buddy2);
 
-		Buddy buddy3 = createEmptyBuddy("4");
+		Buddy buddy3 = createEmptyBuddy(4L);
 		buddy3.setFirstName("David");
 		buddy3.setLastName("Silva");
 		buddyDao.insertDocument(buddy3);
@@ -61,19 +61,19 @@ public class BuddyDaoTest {
 		List<Buddy> buddies = buddyDao.findAll();
 		assertEquals(4, buddies.size());
 
-		IntStream.range(0, buddies.size()).forEach(i -> assertEquals(Integer.toString(i + 1), buddies.get(i).getId()));
+		IntStream.range(0, buddies.size()).forEach(i -> assertEquals(Long.valueOf(i + 1), buddies.get(i).getId()));
 	}
 
 	@Test
 	public void testFindById() {
-		Buddy savedBuddy = buddyDao.findById("1");
+		Buddy savedBuddy = buddyDao.findById(1L);
 		assertEquals("Lionel", savedBuddy.getFirstName());
 	}
 
 	@Test(expected = DuplicateKeyException.class)
 	public void testInvalidInsert() {
 		// Test inserting buddy with an existing Id
-		Buddy buddy = createEmptyBuddy("1");
+		Buddy buddy = createEmptyBuddy(1L);
 		buddyDao.insertDocument(buddy);
 	}
 
@@ -85,14 +85,14 @@ public class BuddyDaoTest {
 
 	@Test
 	public void testFindByInvalidId() {
-		Buddy buddy = buddyDao.findById("999");
+		Buddy buddy = buddyDao.findById(999L);
 		assertNull(buddy);
 	}
 
 	@Test
 	public void testRemoveDocument() {
 		testFindAllSize(1);
-		Buddy buddy = createEmptyBuddy("1");
+		Buddy buddy = createEmptyBuddy(1L);
 		buddyDao.removeDocument(buddy);
 		testFindAllSize(0);
 	}

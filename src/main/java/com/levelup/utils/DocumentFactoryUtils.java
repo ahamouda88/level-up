@@ -42,8 +42,8 @@ public final class DocumentFactoryUtils {
 	 *            the id of the buddy object
 	 * @return a new created buddy object or <i><b>null</b></i> if the id param is invalid
 	 */
-	public static Buddy createEmptyBuddy(String id) {
-		if (isBlank(id)) return null;
+	public static Buddy createEmptyBuddy(Long id) {
+		if (id == null) return null;
 
 		Buddy buddy = new Buddy();
 		buddy.setId(id);

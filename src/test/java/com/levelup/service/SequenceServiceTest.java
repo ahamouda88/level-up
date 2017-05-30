@@ -1,5 +1,7 @@
 package com.levelup.service;
 
+import static com.levelup.utils.DocumentFactoryUtils.createSequence;
+
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
@@ -30,13 +32,13 @@ public class SequenceServiceTest {
 	@Before
 	public void testSave() {
 		// Test Save and Find methods
-		sequenceService.save(createSequenceDocument(sequenceIds[0]));
+		sequenceService.save(createSequence(sequenceIds[0]));
 		assertNotNull(sequenceService.find(sequenceIds[0]));
 
-		sequenceService.save(createSequenceDocument(sequenceIds[1]));
+		sequenceService.save(createSequence(sequenceIds[1]));
 		assertNotNull(sequenceService.find(sequenceIds[1]));
 
-		sequenceService.save(createSequenceDocument(sequenceIds[2]));
+		sequenceService.save(createSequence(sequenceIds[2]));
 		assertNotNull(sequenceService.find(sequenceIds[2]));
 	}
 
@@ -85,11 +87,5 @@ public class SequenceServiceTest {
 		} catch (NullPointerException ex) {
 			assertEquals(ex.getMessage(), expectedMessage);
 		}
-	}
-
-	private Sequence createSequenceDocument(String key) {
-		Sequence sequence = new Sequence();
-		sequence.setId(key);
-		return sequence;
 	}
 }

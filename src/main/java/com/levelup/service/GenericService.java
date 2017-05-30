@@ -39,7 +39,7 @@ public interface GenericService<T, E> {
 	 * 
 	 * @param id
 	 *            the id of the entity
-	 * @return the object that matches the given Id, or <b>null</b> if id is invalid
+	 * @return the object that matches the given Id, or <i><b>null</b></i> if id is invalid
 	 */
 	public T find(E id);
 

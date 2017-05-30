@@ -3,7 +3,8 @@ package com.levelup.service;
 import com.levelup.persist.model.Sequence;
 
 /**
- * An interface to manage and apply the logic for performing operations on a {@link Sequence} entity
+ * An interface that extends {@link GenericService} and manages the logic for performing operations on a
+ * {@link Sequence} entity
  * 
  * @author ahamouda
  *

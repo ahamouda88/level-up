@@ -8,5 +8,5 @@ import com.levelup.persist.model.Buddy;
  * @author ahamouda
  *
  */
-public interface BuddyDao extends CollectionDao<Buddy, String> {
+public interface BuddyDao extends CollectionDao<Buddy, Long> {
 }
