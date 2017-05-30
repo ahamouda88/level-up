@@ -9,7 +9,7 @@ import org.springframework.data.mongodb.core.mapping.Document;
  * @author ahamouda
  *
  */
-@Document(collection = "sequences")
+@Document(collection = "sequence")
 public class Sequence {
 
 	@Id

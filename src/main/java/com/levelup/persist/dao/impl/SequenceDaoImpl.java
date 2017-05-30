@@ -12,7 +12,8 @@ import com.levelup.persist.dao.SequenceDao;
 import com.levelup.persist.model.Sequence;
 
 /**
- * A class that implements {@link SequenceDao}
+ * A class that extends {@link CollectionDaoImpl}, and implements {@link SequenceDao}. It manages the CRUD operations
+ * for a {@link Sequence} object
  * 
  * @author ahamouda
  *

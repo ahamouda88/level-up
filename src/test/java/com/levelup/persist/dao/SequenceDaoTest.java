@@ -1,5 +1,6 @@
 package com.levelup.persist.dao;
 
+import static com.levelup.utils.DocumentFactoryUtils.createSequence;
 import static org.junit.Assert.assertEquals;
 
 import java.util.List;
@@ -34,7 +35,7 @@ public class SequenceDaoTest {
 		assertEquals(true, sequenceDao.collectionExists());
 
 		// Test Insert a sequence object
-		Sequence sequence = createSequenceDocument("carId");
+		Sequence sequence = createSequence("carId");
 		sequenceDao.insertDocument(sequence);
 	}
 
@@ -68,7 +69,7 @@ public class SequenceDaoTest {
 
 	@Test
 	public void testRemoveSequence() {
-		Sequence sequence = createSequenceDocument("carId");
+		Sequence sequence = createSequence("carId");
 		sequenceDao.removeDocument(sequence);
 
 		assertEquals(0, sequenceDao.findAll().size());
@@ -76,7 +77,7 @@ public class SequenceDaoTest {
 
 	@Test
 	public void testRemoveInvalidSequence() {
-		Sequence sequence = createSequenceDocument(null);
+		Sequence sequence = createSequence(null);
 		sequenceDao.removeDocument(sequence);
 
 		assertEquals(1, sequenceDao.findAll().size());
@@ -84,7 +85,7 @@ public class SequenceDaoTest {
 
 	@Test(expected = DuplicateKeyException.class)
 	public void testDuplicateKeySequence() {
-		Sequence sequence = createSequenceDocument("carId");
+		Sequence sequence = createSequence("carId");
 		sequenceDao.insertDocument(sequence);
 	}
 
@@ -94,7 +95,7 @@ public class SequenceDaoTest {
 		assertEquals(1, list.size());
 
 		// Insert a user sequence object
-		Sequence sequence = createSequenceDocument("userId");
+		Sequence sequence = createSequence("userId");
 		sequenceDao.insertDocument(sequence);
 
 		list = sequenceDao.findAll();
@@ -109,12 +110,4 @@ public class SequenceDaoTest {
 
 		assertEquals(false, sequenceDao.collectionExists());
 	}
-
-	private Sequence createSequenceDocument(String key) {
-		Sequence sequence = new Sequence();
-		sequence.setId(key);
-		sequence.setSeq(0);
-		return sequence;
-	}
-
 }
