@@ -20,7 +20,7 @@ import com.levelup.persist.model.Buddy;
 import com.levelup.spring.config.SpringBootConfig;
 
 /**
- * Unit test for Sequence DAO class
+ * Unit test for Buddy DAO class
  */
 @RunWith(SpringRunner.class)
 @SpringBootTest(classes = { SpringBootConfig.class })

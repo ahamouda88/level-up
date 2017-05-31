@@ -1,8 +1,12 @@
 package com.levelup.utils;
 
-import static org.apache.commons.lang3.StringUtils.isBlank;
+import static org.apache.commons.lang.StringUtils.isBlank;
 
+import java.util.List;
+
+import com.levelup.persist.model.Account;
 import com.levelup.persist.model.Buddy;
+import com.levelup.persist.model.BuddyRole;
 import com.levelup.persist.model.Sequence;
 
 /**
@@ -20,7 +24,7 @@ public final class DocumentFactoryUtils {
 	}
 
 	/**
-	 * A method that creates a {@link Sequence} object, using the given key
+	 * A static method that creates a {@link Sequence} object, using the given key
 	 * 
 	 * @param key
 	 *            the key of the sequence object
@@ -36,7 +40,7 @@ public final class DocumentFactoryUtils {
 	}
 
 	/**
-	 * A method that creates an empty or null fields {@link Buddy} object, using the given Id
+	 * A static method that creates an empty or null fields {@link Buddy} object, using the given Id
 	 * 
 	 * @param id
 	 *            the id of the buddy object
@@ -49,4 +53,29 @@ public final class DocumentFactoryUtils {
 		buddy.setId(id);
 		return buddy;
 	}
+
+	/**
+	 * A static method that creates an {@link Account} object, using the given username, password, {@link Buddy}, and
+	 * list of roles
+	 * 
+	 * @param username
+	 *            the username for the account
+	 * @param password
+	 *            the password for the account
+	 * @param buddy
+	 *            the buddy/user associated with the account
+	 * @param roles
+	 *            list of {@link BuddyRole}
+	 * @return a new created Account
+	 */
+	public static Account createAccount(String username, String password, Buddy buddy, List<BuddyRole> roles) {
+		if (isBlank(username) || isBlank(password) || buddy == null) return null;
+		
+		Account account = new Account();
+		account.setBuddy(buddy);
+		account.setUsername(username);
+		account.setPassword(password);
+		return account;
+	}
+
 }

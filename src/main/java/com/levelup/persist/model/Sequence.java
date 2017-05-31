@@ -1,5 +1,7 @@
 package com.levelup.persist.model;
 
+import java.io.Serializable;
+
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
@@ -9,8 +11,10 @@ import org.springframework.data.mongodb.core.mapping.Document;
  * @author ahamouda
  *
  */
-@Document(collection = "sequence")
-public class Sequence {
+@Document(collection = "sequences")
+public class Sequence implements Serializable {
+
+	private static final long serialVersionUID = 1L;
 
 	@Id
 	private String id;

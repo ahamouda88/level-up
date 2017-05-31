@@ -1,5 +1,6 @@
 package com.levelup.persist.model;
 
+import java.io.Serializable;
 import java.util.Arrays;
 
 import javax.persistence.Lob;
@@ -14,8 +15,10 @@ import org.springframework.data.mongodb.core.mapping.Document;
  * @author ahamouda
  *
  */
-@Document(collection = "buddy")
-public class Buddy {
+@Document(collection = "buddies")
+public class Buddy implements Serializable {
+
+	private static final long serialVersionUID = 1L;
 
 	@Id
 	@Indexed
