@@ -1,7 +1,7 @@
 package com.levelup.persist.dao.impl;
 
-import java.util.List;
-
+import org.springframework.data.mongodb.core.query.Criteria;
+import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.stereotype.Repository;
 
 import com.levelup.persist.dao.AccountDao;
@@ -22,12 +22,15 @@ public class AccountDaoImpl extends CollectionDaoImpl<Account, String> implement
 	}
 
 	/**
-	 * @see AccountDao#getAccounts(Long)
+	 * @see AccountDao#findByBuddyId(Long)
 	 */
 	@Override
-	public List<Account> getAccounts(Long buddyId) {
-		// TODO Auto-generated method stub
-		return null;
+	public Account findByBuddyId(Long buddyId) {
+		if (buddyId == null) return null;
+
+		Query query = new Query(Criteria.where("buddy.id").is(buddyId));
+
+		return getMongoTemplate().findOne(query, Account.class);
 	}
 
 }

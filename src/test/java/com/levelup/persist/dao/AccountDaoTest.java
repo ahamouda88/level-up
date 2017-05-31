@@ -4,6 +4,7 @@ import static com.levelup.utils.DocumentFactoryUtils.createAccount;
 import static com.levelup.utils.DocumentFactoryUtils.createEmptyBuddy;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNull;
+import static org.junit.Assert.assertNotNull;
 
 import java.util.List;
 
@@ -96,6 +97,17 @@ public class AccountDaoTest {
 		testFindAllSize(2);
 		accountDao.removeDocument(null);
 		testFindAllSize(2);
+	}
+
+	@Test
+	public void testFindByBuddyId() {
+		Account account = accountDao.findByBuddyId(1L);
+		assertNotNull(account);
+		assertEquals("ahamouda", account.getUsername());
+		assertEquals("password1", account.getPassword());
+
+		// Test invalid parameter
+		assertNull(accountDao.findByBuddyId(null));
 	}
 
 	@After

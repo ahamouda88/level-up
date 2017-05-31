@@ -1,7 +1,5 @@
 package com.levelup.persist.dao;
 
-import java.util.List;
-
 import com.levelup.persist.model.Account;
 
 /**
@@ -13,12 +11,12 @@ import com.levelup.persist.model.Account;
 public interface AccountDao extends CollectionDao<Account, String> {
 
 	/**
-	 * A method that returns the list of accounts that are associated to a buddy/user given the buddy Id
+	 * A method that returns the account associated to a buddy/user given the buddy Id
 	 * 
 	 * @param buddyId
 	 *            the user/buddy id
-	 * @return a list of accounts, or <i><b>null</b></i> if buddy Id is null
+	 * @return the account associated to the given buddy, or <i><b>null</b></i> if buddy Id is null
 	 */
-	public List<Account> getAccounts(Long buddyId);
+	public Account findByBuddyId(Long buddyId);
 
 }
