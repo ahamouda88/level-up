@@ -30,6 +30,17 @@ public class AccountServiceImpl implements AccountService {
 	public void save(Account account) {
 		if (account == null) throw new NullPointerException("Account object must not be null");
 
+		if (account.getBuddy() == null || account.getBuddy().getId() == null) {
+			throw new IllegalArgumentException("Buddy object, and buddy Id must not be null");
+		}
+
+		// Check if buddy/user has an account already if so then throw an exception
+		long id = account.getBuddy().getId();
+		Account buddyAccount = accountDao.findByBuddyId(id);
+
+		if (buddyAccount != null)
+			throw new AccountAlreadyExitsException(String.format("Buddy with Id %s already has an account", id));
+
 		accountDao.insertDocument(account);
 	}
 
@@ -40,6 +51,10 @@ public class AccountServiceImpl implements AccountService {
 		accountDao.removeDocument(account);
 	}
 
+	/**
+	 * @throws AccountAlreadyExitsException
+	 *             if buddy already has an account
+	 */
 	@Override
 	public void update(Account account) {
 		if (account == null) throw new NullPointerException("Account object must not be null");
