@@ -21,9 +21,6 @@ public class AccountDaoImpl extends CollectionDaoImpl<Account, String> implement
 		super(Account.class);
 	}
 
-	/**
-	 * @see AccountDao#findByBuddyId(Long)
-	 */
 	@Override
 	public Account findByBuddyId(Long buddyId) {
 		if (buddyId == null) return null;

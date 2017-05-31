@@ -23,9 +23,6 @@ public class SequenceServiceImpl implements SequenceService {
 	@Autowired
 	private SequenceDao sequenceDao;
 
-	/**
-	 * @see SequenceService#save(Sequence)
-	 */
 	@Override
 	public void save(Sequence sequence) {
 		if (!isValidSequence(sequence)) {
@@ -34,9 +31,6 @@ public class SequenceServiceImpl implements SequenceService {
 		sequenceDao.insertDocument(sequence);
 	}
 
-	/**
-	 * @see SequenceService#delete(Sequence)
-	 */
 	@Override
 	public void delete(Sequence sequence) {
 		if (!isValidSequence(sequence)) {
@@ -45,9 +39,6 @@ public class SequenceServiceImpl implements SequenceService {
 		sequenceDao.removeDocument(sequence);
 	}
 
-	/**
-	 * @see SequenceService#update(Sequence)
-	 */
 	@Override
 	public void update(Sequence sequence) {
 		if (!isValidSequence(sequence)) {
@@ -56,9 +47,6 @@ public class SequenceServiceImpl implements SequenceService {
 		sequenceDao.upsertDocument(sequence);
 	}
 
-	/**
-	 * @see SequenceService#find(String)
-	 */
 	@Override
 	public Sequence find(String id) {
 		if (isEmpty(id)) return null;
@@ -66,9 +54,6 @@ public class SequenceServiceImpl implements SequenceService {
 		return sequenceDao.findById(id);
 	}
 
-	/**
-	 * @see SequenceService#getNextSequenceId(String)
-	 */
 	@Override
 	public long getNextSequenceId(String seqKey) {
 		if (isEmpty(seqKey)) return -1;
@@ -76,9 +61,6 @@ public class SequenceServiceImpl implements SequenceService {
 		return sequenceDao.getNextSequenceId(seqKey);
 	}
 
-	/**
-	 * @see SequenceService#findAll()
-	 */
 	@Override
 	public List<Sequence> findAll() {
 		return sequenceDao.findAll();

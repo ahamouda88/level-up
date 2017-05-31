@@ -28,13 +28,10 @@ public class BuddyServiceImpl implements BuddyService {
 	@Autowired
 	private BuddyDao buddyDao;
 
-	/**
-	 * @see BuddyService#save(Buddy)
-	 */
 	@Override
 	public void save(Buddy buddy) {
 		if (buddy == null) throw new NullPointerException("Buddy object must not be null");
-		
+
 		sequenceCheck();
 		long id = sequenceService.getNextSequenceId(SEQ_KEY);
 
@@ -44,9 +41,6 @@ public class BuddyServiceImpl implements BuddyService {
 		buddyDao.insertDocument(buddy);
 	}
 
-	/**
-	 * @see BuddyService#delete(Buddy)
-	 */
 	@Override
 	public void delete(Buddy buddy) {
 		if (buddy == null) throw new NullPointerException("Buddy object must not be null");
@@ -54,9 +48,6 @@ public class BuddyServiceImpl implements BuddyService {
 		buddyDao.removeDocument(buddy);
 	}
 
-	/**
-	 * @see BuddyService#update(Buddy)
-	 */
 	@Override
 	public void update(Buddy buddy) {
 		if (buddy == null) throw new NullPointerException("Buddy object must not be null");
@@ -64,9 +55,6 @@ public class BuddyServiceImpl implements BuddyService {
 		buddyDao.upsertDocument(buddy);
 	}
 
-	/**
-	 * @see BuddyService#find(Long)
-	 */
 	@Override
 	public Buddy find(Long id) {
 		if (id == null) return null;
@@ -74,9 +62,6 @@ public class BuddyServiceImpl implements BuddyService {
 		return buddyDao.findById(id);
 	}
 
-	/**
-	 * @see BuddyService#findAll()
-	 */
 	@Override
 	public List<Buddy> findAll() {
 		return buddyDao.findAll();

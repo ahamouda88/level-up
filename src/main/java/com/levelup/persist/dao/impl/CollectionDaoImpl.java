@@ -17,17 +17,11 @@ public abstract class CollectionDaoImpl<T, E extends Serializable> implements Co
 		this.classType = classType;
 	}
 
-	/**
-	 * @see CollectionDao#getMongoTemplate()
-	 */
 	@Override
 	public MongoTemplate getMongoTemplate() {
 		return mongoTemplate;
 	}
 
-	/**
-	 * @see CollectionDao#getCollectionType()
-	 */
 	@Override
 	public Class<T> getCollectionType() {
 		return classType;

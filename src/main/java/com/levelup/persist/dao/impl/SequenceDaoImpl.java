@@ -27,9 +27,6 @@ public class SequenceDaoImpl extends CollectionDaoImpl<Sequence, String> impleme
 		super(Sequence.class);
 	}
 
-	/**
-	 * @see SequenceDao#getNextSequenceId(String)
-	 */
 	@Override
 	public long getNextSequenceId(String seqKey) {
 		Query query = new Query(Criteria.where("id").is(seqKey));

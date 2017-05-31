@@ -1,6 +1,6 @@
 package com.levelup.utils;
 
-import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -24,11 +24,6 @@ public final class CollectionUtils {
 	public static <T> List<T> listOf(T... elements) {
 		if (elements == null) return null;
 
-		List<T> list = new ArrayList<>();
-		for (T element : elements) {
-			list.add(element);
-		}
-		return list;
-
+		return Arrays.asList(elements);
 	}
 }
