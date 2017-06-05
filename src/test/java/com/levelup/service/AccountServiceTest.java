@@ -18,11 +18,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
+import com.levelup.config.spring.SpringBootConfig;
 import com.levelup.persist.model.Account;
 import com.levelup.persist.model.Buddy;
 import com.levelup.persist.model.BuddyRole;
 import com.levelup.persist.model.exception.AccountAlreadyExitsException;
-import com.levelup.spring.config.SpringBootConfig;
 import com.levelup.utils.CollectionUtils;
 import com.levelup.utils.DocumentFactoryUtils;
 

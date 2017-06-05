@@ -1,4 +1,4 @@
-package com.levelup.spring.config;
+package com.levelup.config.spring;
 
 import org.springframework.context.annotation.Configuration;
 import org.springframework.data.mongodb.config.AbstractMongoConfiguration;

@@ -14,9 +14,9 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.dao.DuplicateKeyException;
 import org.springframework.test.context.junit4.SpringRunner;
 
+import com.levelup.config.spring.SpringBootConfig;
 import com.levelup.persist.dao.SequenceDao;
 import com.levelup.persist.model.Sequence;
-import com.levelup.spring.config.SpringBootConfig;
 
 /**
  * Unit test for Sequence DAO class

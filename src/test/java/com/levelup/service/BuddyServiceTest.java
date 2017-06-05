@@ -15,8 +15,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
+import com.levelup.config.spring.SpringBootConfig;
 import com.levelup.persist.model.Buddy;
-import com.levelup.spring.config.SpringBootConfig;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest(classes = { SpringBootConfig.class })
