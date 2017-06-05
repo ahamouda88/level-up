@@ -51,6 +51,11 @@ public class AccountServiceImpl implements AccountService {
 		accountDao.removeDocument(account);
 	}
 
+	@Override
+	public void deleteAll() {
+		accountDao.removeAll();
+	}
+
 	/**
 	 * @throws AccountAlreadyExitsException
 	 *             if buddy already has an account

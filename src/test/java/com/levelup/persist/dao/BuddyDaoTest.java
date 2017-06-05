@@ -31,9 +31,6 @@ public class BuddyDaoTest {
 
 	@Before
 	public void testCreateCollection() {
-		buddyDao.createCollection();
-		assertEquals(true, buddyDao.collectionExists());
-
 		// Test upsert buddy object
 		Buddy buddy = createEmptyBuddy(1L);
 		buddy.setFirstName("Lionel");
@@ -105,12 +102,10 @@ public class BuddyDaoTest {
 	}
 
 	@After
-	public void testDropCollection() {
-		assertEquals(true, buddyDao.collectionExists());
-
-		buddyDao.dropCollection();
-
-		assertEquals(false, buddyDao.collectionExists());
+	public void testRemoveAll() {
+		buddyDao.removeAll();
+		
+		testFindAllSize(0);
 	}
 
 	private void testFindAllSize(int expectedSize) {

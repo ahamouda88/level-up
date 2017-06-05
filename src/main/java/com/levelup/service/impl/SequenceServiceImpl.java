@@ -40,6 +40,11 @@ public class SequenceServiceImpl implements SequenceService {
 	}
 
 	@Override
+	public void deleteAll() {
+		sequenceDao.removeAll();
+	}
+
+	@Override
 	public void update(Sequence sequence) {
 		if (!isValidSequence(sequence)) {
 			throw new NullPointerException("Sequence object and the sequence Id can't be null");

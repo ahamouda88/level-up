@@ -27,6 +27,11 @@ public interface GenericService<T, E> {
 	public void delete(T obj);
 
 	/**
+	 * A method that deletes all the objects from the database
+	 */
+	public void deleteAll();
+
+	/**
 	 * A method that updates an object in the database
 	 * 
 	 * @param obj

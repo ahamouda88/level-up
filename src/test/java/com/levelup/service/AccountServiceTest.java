@@ -35,6 +35,9 @@ public class AccountServiceTest {
 
 	@Before
 	public void testSave() {
+		// Clear collection
+		accountService.deleteAll();
+
 		testSaveAndFindAccount("leo", "password1", 1l, null);
 
 		testSaveAndFindAccount("ahamouda", "password2", 2l, null);
@@ -84,6 +87,10 @@ public class AccountServiceTest {
 		// Test invalid find method
 		assertNull(accountService.find("invalidUsername"));
 
+		// Test remove all
+		accountService.deleteAll();
+		List<Account> accounts = accountService.findAll();
+		assertEquals(0, accounts.size());
 	}
 
 	private void testAccountAlreadyExits(Consumer<Account> consumer, String expectedMessage) {

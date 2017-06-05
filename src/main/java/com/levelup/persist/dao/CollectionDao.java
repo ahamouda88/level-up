@@ -101,6 +101,13 @@ public interface CollectionDao<T, E extends Serializable> {
 	}
 
 	/**
+	 * A method that removes all documents from the collection
+	 */
+	public default void removeAll() {
+		getMongoTemplate().remove(new Query(), getCollectionType());
+	}
+
+	/**
 	 * A method that returns all documents of a collection
 	 * 
 	 * @return a list of documents

@@ -34,9 +34,6 @@ public class AccountDaoTest {
 
 	@Before
 	public void testCreateCollection() {
-		accountDao.createCollection();
-		assertEquals(true, accountDao.collectionExists());
-
 		// Test upsert account object
 		Account account1 = createAccount("ahamouda", "password1", createEmptyBuddy(1L), null);
 		accountDao.upsertDocument(account1);
@@ -111,12 +108,10 @@ public class AccountDaoTest {
 	}
 
 	@After
-	public void testDropCollection() {
-		assertEquals(true, accountDao.collectionExists());
+	public void testRemoveAll() {
+		accountDao.removeAll();
 
-		accountDao.dropCollection();
-
-		assertEquals(false, accountDao.collectionExists());
+		testFindAllSize(0);
 	}
 
 	private void testFindAllSize(int expectedSize) {

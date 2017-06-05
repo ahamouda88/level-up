@@ -30,10 +30,6 @@ public class SequenceDaoTest {
 
 	@Before
 	public void testCreateCollection() {
-		sequenceDao.createCollection();
-
-		assertEquals(true, sequenceDao.collectionExists());
-
 		// Test Insert a sequence object
 		Sequence sequence = createSequence("carId");
 		sequenceDao.insertDocument(sequence);
@@ -103,11 +99,10 @@ public class SequenceDaoTest {
 	}
 
 	@After
-	public void testDropCollection() {
-		assertEquals(true, sequenceDao.collectionExists());
-
-		sequenceDao.dropCollection();
-
-		assertEquals(false, sequenceDao.collectionExists());
+	public void testRemoveAll() {
+		sequenceDao.removeAll();
+		
+		List<Sequence> list = sequenceDao.findAll();
+		assertEquals(0, list.size());
 	}
 }

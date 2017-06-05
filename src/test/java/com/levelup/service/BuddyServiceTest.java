@@ -27,6 +27,9 @@ public class BuddyServiceTest {
 
 	@Before
 	public void testSave() {
+		// Clear collection
+		buddyService.deleteAll();
+		
 		testSaveAndFindBuddy("Lionel", "messi@barca.com", 1L);
 
 		testSaveAndFindBuddy("Sahar", "elkaffash@gmail.com", 2L);
@@ -70,6 +73,10 @@ public class BuddyServiceTest {
 		// Test invalid find method
 		assertNull(buddyService.find(1222L));
 
+		// Test remove all
+		buddyService.deleteAll();
+		List<Buddy> accounts = buddyService.findAll();
+		assertEquals(0, accounts.size());
 	}
 
 	private void testInvalidNullParameter(Consumer<Buddy> consumer, String expectedMessage) {

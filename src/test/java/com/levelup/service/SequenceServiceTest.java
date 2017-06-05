@@ -1,12 +1,12 @@
 package com.levelup.service;
 
 import static com.levelup.utils.DocumentFactoryUtils.createSequence;
-
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.fail;
 
+import java.util.List;
 import java.util.function.Consumer;
 
 import org.junit.After;
@@ -27,10 +27,13 @@ public class SequenceServiceTest {
 	@Autowired
 	private SequenceService sequenceService;
 
-	private final String[] sequenceIds = new String[] { "personId", "autoId", "aptId" };
+	private final String[] sequenceIds = new String[] { "personId", "autoId", "userId" };
 
 	@Before
 	public void testSave() {
+		// Clear collection
+		sequenceService.deleteAll();
+
 		// Test Save and Find methods
 		sequenceService.save(createSequence(sequenceIds[0]));
 		assertNotNull(sequenceService.find(sequenceIds[0]));
@@ -78,6 +81,11 @@ public class SequenceServiceTest {
 
 		// Test invalid getNextSequenceId method
 		assertEquals(-1, sequenceService.getNextSequenceId(sequenceIds[0]));
+
+		// Test remove all
+		sequenceService.deleteAll();
+		List<Sequence> sequencies = sequenceService.findAll();
+		assertEquals(0, sequencies.size());
 	}
 
 	private void testInvalidNullParameter(Consumer<Sequence> consumer, String expectedMessage) {

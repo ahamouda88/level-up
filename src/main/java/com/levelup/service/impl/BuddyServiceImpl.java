@@ -49,6 +49,11 @@ public class BuddyServiceImpl implements BuddyService {
 	}
 
 	@Override
+	public void deleteAll() {
+		buddyDao.removeAll();
+	}
+
+	@Override
 	public void update(Buddy buddy) {
 		if (buddy == null) throw new NullPointerException("Buddy object must not be null");
 
